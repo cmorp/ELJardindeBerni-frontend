@@ -1,0 +1,16 @@
+.hero-section {
+    height: 50vh;
+}
+
+.loginRegister {
+    background-color: #fbeafe;
+    width: 15%;
+}
+
+.text {
+    color: #819bc6;
+    font-weight: 400 !important;
+    font-style: oblique;
+    padding-top: 50px;
+    padding-bottom: 80px;
+}

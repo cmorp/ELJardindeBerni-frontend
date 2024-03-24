@@ -1,0 +1,27 @@
+h4 {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.form-box {
+  width: 50%;
+  background-color: #eaf0fe;
+  border-radius: 17px;
+}
+
+.publicar-button {
+  background-color: #819bc6;
+  border-radius: 50px;
+  border: none;
+}
+
+.publicar-button:hover {
+  background-color: #8692a5;
+  transition: 0.1s;
+}
+
+@media (max-width: 750px) {
+  .form-box {
+    width: 100%;
+  }
+}

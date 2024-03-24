@@ -1,0 +1,44 @@
+h1 {
+        font-family: "Special Elite", system-ui;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 80px !important;
+        font-weight: 100;
+        color: #ffcad5 !important;
+}
+
+.header-bg {
+        background-color: #99A985;
+        min-height: 30vh !important;
+}
+
+.subtitle {
+        background-color: #D699A5;
+        color: #Fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center; 
+        height: 100%; 
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+}
+
+.logo {
+        height: 20svh;
+        width: 30svh;
+        animation-name: logo;
+        animation-duration: 5s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate-reverse;
+}
+
+@keyframes logo {
+        from {
+                transform: rotate(10deg) scale(1.1);
+        }
+
+        to {
+                transform: rotate(-10deg) scale(1);
+        }
+}

@@ -1,0 +1,16 @@
+.cardStyle{
+    background-color: #faf9f9!important;
+    border-radius: 40px!important;
+}
+
+.primary {
+    background-color: #819bc6 !important;
+    color: white!important;
+    border-color: #819bc6 !important;
+}
+
+.secondary {
+    background-color:#c8c7c7!important ;
+    color: rgb(47, 46, 46)!important;
+    border-color: #c8c7c7!important;
+}

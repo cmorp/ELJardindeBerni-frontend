@@ -1,0 +1,38 @@
+.footer-main {
+  background-color: #99A985;
+  min-height: 30vh !important;
+}
+
+.link-to-category-footer {
+  color: black;
+  text-decoration: none;
+}
+
+.pre-footer-img {
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+}
+
+.copyright-footer-end {
+  background-color: #650144;
+  color: #ffd5ee;
+  padding: 20px;
+}
+
+@media (max-width: 750px) {
+
+  .footer-row {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    width: 50% !important;
+  }
+
+  .h3-footer {
+    font-size: 15px;
+  }
+
+  .link-to-category-footer {
+    font-size: 15px !important;
+  }
+}

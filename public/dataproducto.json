@@ -1,0 +1,66 @@
+[
+  {
+    "description": "Mide 27 centímetros de alto aproximadamente. Viene en macetero plástico. ",
+    "id": "1",
+    "image": "https://plantme.cl/cdn/shop/products/orquideas.chicas_Mesadetrabajo1copia8_540x.jpg",
+    "clave": ["Orquídea", "Planta"],
+    "productname": "Orquídea Pequeña",
+    "price": "$25.000"
+  },
+  {
+    "description": "Mide 35 centímetros de alto aproximadamente. Viene en macetero fiberclay.",
+    "id": "2",
+    "image": "https://plantme.cl/cdn/shop/products/alejandria_bumga_540x.jpg",
+    "clave": ["Bugambilia", "Planta"],
+    "productname": "Bugambilia",
+    "price": "$50.000"
+  },
+  {
+    "description": "Mide 35 centímetros de alto aproximadamente. Viene en macetero plástico.",
+    "id": "3",
+    "image": "https://plantme.cl/cdn/shop/files/IMG_9309_540x.heic",
+    "clave": ["Cala", "Planta"],
+    "productname": "Cala Morada",
+    "precio": "$20.000"
+  },
+  {
+    "description": "Mide 35 centímetros de alto aproximadamente. Viene en macetero de cerámica.",
+    "id": "4",
+    "image": "https://plantme.cl/cdn/shop/products/DSC_5102_540x.jpg",
+    "clave": ["Calathea", "Planta"],
+    "productname": "Calathea Makoyana",
+    "price": "$65.000"
+  },
+  {
+    "description": "Mide 1 metro de alto. Viene en macetero autorregante.",
+    "id": "5",
+    "image": "https://plantme.cl/cdn/shop/products/fidel-ficus-lyrata-interior-plantme-chile-autorregante-xl-blanco-340031_540x.jpg",
+    "clave": ["Ficus", "Planta"],
+    "productname": "Ficus Lyrata",
+    "price": "$100.000"
+  },  
+  {
+    "description": "Mide 20 centímetros de alto aproximadamente. Viene en macetero de cerámica",
+    "id": "6",
+    "image": "https://plantme.cl/cdn/shop/files/2023.12.20MarcelDuhaut2825-10_1800x1800.jpg",
+    "clave": ["Girasol", "Planta"],
+    "productname": "Girasol",
+    "price": "$30.000"
+  },
+  {
+    "description": "Mide 30 centímetros de alto aproximadamente. Viene en canasto de fibra natural.",
+    "id": "7",
+    "image": "https://plantme.cl/cdn/shop/products/antonella-anthurium-rosado-plantme-chile-198112_540x.jpg",
+    "clave": ["Anturio", "Planta"],
+    "productname": "Anturio Rosado",
+    "price": "$45.000"
+  },  
+  {
+    "description": "Mide 1 metro de alto. Viene en macetero de metal.",
+    "id": "8",
+    "image": "https://plantme.cl/cdn/shop/products/flor-del-pajaro-strelitzia-reginae-interior-plantme-chile-metal-cobre-xl-816915_540x.jpg",
+    "clave": ["Strelitzia", "Planta"],
+    "productname": "Strelitzia Reginae",
+    "price": "$100.000"
+  }
+]

@@ -1,0 +1,41 @@
+.card-container {
+  width: 100% !important;
+  height: 400px !important;
+}
+
+.button-add-cart {
+  background-color: #b9c6db !important;
+  border-color: #000000 !important;
+  color: black !important;
+}
+
+.button-add-cart:hover {
+  background-color: #819bc6 !important;
+  transition: 0.10s;
+}
+
+.card-image {
+  width: 150%;
+  height: 150px;
+  object-fit: contain;
+}
+
+.like-button {
+  border: none;
+}
+
+.button-cards {
+  bottom: 0;
+  position: absolute;
+}
+
+@media (max-width: 750px) {
+  .card-container {
+    width: 99% !important;
+    height: auto;
+  }
+
+  .like-button {
+    font-size: 30px !important;
+  }
+}

@@ -77,7 +77,7 @@ function Cards() {
                   <Card.Body>
                     <Card.Title className="m-2">{item?.productname}</Card.Title>
                     <Card.Text className="m-2">{numberFormat.format(item.price)}</Card.Text>
-                    <Card.Text className="m-2">{item?.description}</Card.Text>
+                    <Card.Text className="m-2 description">{item?.description}</Card.Text>
                     <div className="button-cards m-4 d-flex align-items-center">
                       <Button
                         className="button-add-cart"

@@ -29,7 +29,7 @@
   position: absolute;
 }
 
-@media (max-width: 999px) { 
+@media (max-width: 991px) { 
   .card-container {
     width: 99% !important;
     height: auto;
@@ -40,8 +40,8 @@
   }
 }
 
-@media (min-width: 1000px) and (max-width: 1200px) {
-  .card .description {
+@media (min-width: 992px) and (max-width: 1200px) {
+  .description {
     display: none; 
   }
 }

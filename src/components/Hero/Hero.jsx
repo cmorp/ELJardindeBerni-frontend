@@ -28,7 +28,7 @@ function Hero() {
     }
 
     carousel.scrollTo({ left: scrollPosition, behavior: 'smooth' })
-    setTimeout(animateScroll, 5000)
+    setTimeout(animateScroll, 4000)
   }
 
   function autoScrollCarousel() {
@@ -43,13 +43,13 @@ function Hero() {
       <div className="carousel-container">
         <div className="carousel-inner-mobile">
           <div className="bgHeroImg slide-mobile">
-            <Image src={Bg1} />
+            <Image src={Bg1} fluuid/>
           </div>
           <div className="bgHeroImg slide-mobile">
-            <Image src={Bg2} />
+            <Image src={Bg2} fluid />
           </div>
           <div className="bgHeroImg slide-mobile">
-            <Image src={Bg3} />
+            <Image src={Bg3} fluid/>
           </div>
         </div>
       </div>

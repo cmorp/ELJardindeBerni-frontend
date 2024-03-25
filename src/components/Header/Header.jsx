@@ -3,7 +3,7 @@ import { UserContext } from '../../providers/UserProvider'
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
-import NavLoggin from '../NavLogin/NavLogin'
+import NavLogin from '../NavLogin/NavLogin'
 import './Header.css'
 import NavPublic from '../NavPublic/NavPublic';
 import Logo from "/images/loguito.png";
@@ -17,9 +17,9 @@ function Header() {
         <Image className='logo ms-3 mt-1 mb-2 me-1' src={Logo} alt="Logo"/>
         </Link>
         <div>
-        <h1 className="ms-2">El Jardín de Berni</h1>
+        <h1 className="ms-2 d-none d-lg-block">El Jardín de Berni</h1>
         </div>
-        {(user)?<div className="d-flex justify-items-end align-content-end"><NavLoggin /></div >:<div className="d-flex justify-items-end"><NavPublic /></div>}
+        {(user)?<div className="d-flex justify-items-end align-content-end"><NavLogin /></div >:<div className="d-flex justify-items-end"><NavPublic /></div>}
       </Container>
       <Container fluid className="subtitle">
       <div>

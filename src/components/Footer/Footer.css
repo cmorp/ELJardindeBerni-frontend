@@ -20,7 +20,7 @@
   padding: 20px;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 768px) {
 
   .footer-row {
     padding-top: 50px;
@@ -29,7 +29,8 @@
   }
 
   .h3-footer {
-    font-size: 15px;
+    display: none !important;
+  
   }
 
   .link-to-category-footer {

@@ -23,14 +23,13 @@
 @media (max-width: 768px) {
 
   .footer-row {
-    padding-top: 50px;
-    padding-bottom: 50px;
-    width: 50% !important;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    width: 30% !important;
   }
 
   .h3-footer {
     display: none !important;
-  
   }
 
   .link-to-category-footer {

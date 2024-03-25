@@ -28,7 +28,7 @@ function Hero() {
     }
 
     carousel.scrollTo({ left: scrollPosition, behavior: 'smooth' })
-    setTimeout(animateScroll, 4000)
+    setTimeout(animateScroll, 5000)
   }
 
   function autoScrollCarousel() {

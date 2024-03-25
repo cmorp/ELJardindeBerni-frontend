@@ -19,9 +19,6 @@
 
 .carousel-inner-mobile {
   display: flex;
-  width: 300%;
-  margin: 0; 
-  padding: 0;
 }
 
 .slide-mobile {

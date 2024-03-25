@@ -35,7 +35,7 @@ function Footer() {
 
       <Container fluid className='footer-main w-100 h-100 d-flex justify-content-between align-items-center'>
         <Container>
-          <Row xs={1} md={2} lg={6} className='footer-row m-auto'>
+          <Row xs={1} md={6} lg={6} className='footer-row m-auto'>
             <Col className='m-auto'>
               <div className='h-100 d-flex flex-column align-items-start'>
                 <h3 className='h3-footer'>Contáctanos</h3>

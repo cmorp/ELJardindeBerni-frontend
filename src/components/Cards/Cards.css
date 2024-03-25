@@ -29,7 +29,7 @@
   position: absolute;
 }
 
-@media (max-width: 768px) and (max-width: 1200px) { 
+@media (max-width: 999px) { 
   .card-container {
     width: 99% !important;
     height: auto;
@@ -37,5 +37,11 @@
 
   .like-button {
     font-size: 30px !important;
+  }
+}
+
+@media (min-width: 1000px) and (max-width: 1200px) {
+  .card .description {
+    display: none; 
   }
 }

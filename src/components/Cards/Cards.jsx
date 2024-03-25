@@ -59,7 +59,10 @@ function Cards() {
 
   return (
     <Container>
-      <Row lg={4} md={4} sm={1} xs={1} className="row-gap-5">
+      <Row lg={4} md={1} sm={1} xs={1} className="row-gap-5">
+        {(!products || products.length === 0) && (
+          <h1>No hay productos disponibles</h1>
+        )}
         {products &&
           products.length > 0 &&
           products?.map((item) => {

@@ -43,13 +43,13 @@ function Hero() {
       <div className="carousel-container">
         <div className="carousel-inner-mobile">
           <div className="bgHeroImg slide-mobile">
-            <Image src={Bg1} fluuid/>
+            <Image src={Bg1} />
           </div>
           <div className="bgHeroImg slide-mobile">
-            <Image src={Bg2} fluid />
+            <Image src={Bg2} />
           </div>
           <div className="bgHeroImg slide-mobile">
-            <Image src={Bg3} fluid/>
+            <Image src={Bg3} />
           </div>
         </div>
       </div>

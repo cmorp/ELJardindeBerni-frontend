@@ -61,7 +61,8 @@ function Cards() {
     <Container>
       <Row lg={4} md={1} sm={1} xs={1} className="row-gap-5">
         {(!products || products.length === 0) && (
-          <h2>Lo sentimos, en este momento no hay productos disponibles :( </h2>
+          <h2>¡Lo sentimos! <br/> 
+          En estos momentos no hay productos disponibles :( </h2>
         )}
         {products &&
           products.length > 0 &&

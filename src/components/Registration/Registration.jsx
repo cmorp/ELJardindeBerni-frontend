@@ -18,7 +18,7 @@ const Registration = () => {
       userPhone: values.userPhone,
       password: values.password,
       password2: values.password2,
-      address: values.address,
+      userAddress: values.userAddress,
       region: values.region,
       city: values.city
     }
@@ -27,15 +27,17 @@ const Registration = () => {
       const res = await userRegister(user)
 
       if (!res.ok) {
-        const { error } = await res.json()
-        throw new Error(error)
+        const data = await res.json()
+        throw new Error(
+          data?.message || data?.error || 'Error al crear usuario.'
+        )
       }
 
       // console.log('data del user a la db: ', res)
       resetForm()
       alert('Registro exitoso. Ahora puedes iniciar sesión.')
     } catch (err) {
-      alert('Error al crear usuario. Inténtalo de nuevo.')
+      alert(err || 'Error al crear usuario.')
     } finally {
       setSubmitting(false)
     }
@@ -58,14 +60,14 @@ const Registration = () => {
 
     const validateFields = {
       profile_id: [isRequired],
-      userName: [isRequired],
-      userEmail: [isRequired, isValidEmail],
-      userPhone: [isRequired],
-      password: [isRequired],
-      password2: [isRequired],
-      address: [isRequired],
-      region: [isRequired],
-      city: [isRequired]
+      userName: [isRequired, maxLength(50)],
+      userEmail: [isRequired, isValidEmail, maxLength(50)],
+      userPhone: [isRequired, maxLength(12)],
+      password: [isRequired, maxLength(60)],
+      password2: [isRequired, maxLength(60)],
+      userAddress: [isRequired, maxLength(25)],
+      region: [isRequired, maxLength(25)],
+      city: [isRequired, maxLength(25)]
     }
 
     for (const field in validateFields) {
@@ -183,13 +185,13 @@ const Registration = () => {
             />
 
             <ErrorMessage
-              name="address"
+              name="userAddress"
               component="div"
               className="text-danger"
             />
             <Field
               type="text"
-              name="address"
+              name="userAddress"
               placeholder="Dirección"
               className="mb-3 form-control"
             />

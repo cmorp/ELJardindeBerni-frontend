@@ -100,7 +100,7 @@ const Registration = () => {
             userPhone: '',
             password: '',
             password2: '',
-            address: '',
+            userAddress: '',
             region: '',
             city: ''
           }}

@@ -32,6 +32,12 @@ const UserProvider = ({ children }) => {
             body: JSON.stringify({ userEmail: email, password: contraseña })
         })
 
+        if (!response.ok) {
+            const data = await response.json()
+            setErrorType('userNotFound')
+            return false
+        }
+
         return response
             .json()
             .then((data) => {

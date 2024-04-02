@@ -15,6 +15,7 @@ const UserProvider = ({ children }) => {
     const [favs, setFavs] = useState([])
     const [errorType, setErrorType] = useState(null)
     const [success, setSuccess] = useState(false)
+    const [loading,setLoading] = useState({login:false, register:false})
 
 
     const userRegister = async (userRegister) => {
@@ -26,6 +27,7 @@ const UserProvider = ({ children }) => {
     }
 
     const userLogin = async (email, contraseña) => {
+        setLoading({...loading, login: true})
         const response = await fetch(`${URL_BASE}/public/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -35,6 +37,7 @@ const UserProvider = ({ children }) => {
         if (!response.ok) {
             const data = await response.json()
             setErrorType('userNotFound')
+            setLoading({...loading, parametros: false})
             return false
         }
 
@@ -48,6 +51,9 @@ const UserProvider = ({ children }) => {
             .catch((error) => {
                 console.error('Error al iniciar sesión:', error)
                 return false
+            })
+            .finally(() => {
+                setLoading({...loading, parametros: true})
             })
     }
 
@@ -160,7 +166,7 @@ const UserProvider = ({ children }) => {
     }
 
     const deleteProduct = async (productId) => {
-        const response = await fetch(`${URL_BASE}/private/user/products`, {
+        const response = await fetch(`${URL_BASE}/private/users/products`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -186,6 +192,29 @@ const UserProvider = ({ children }) => {
 
         return data
     }
+
+
+    const getCart = async (userId) => {
+        try {
+            const response = await fetch(`${URL}/private/users/cart/${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            if (!response.ok) {
+                throw new Error('Error al obtener el carrito.')
+            }
+            const data = await response.json()
+            
+            setCart(data)
+            return data;
+        } catch (error) {
+            console.error(error)
+            setErrorType('Error al obtener el carrito desde DB')
+        }
+    }
+
 
     useEffect(() => {
         if (token && user) {
@@ -223,7 +252,10 @@ const UserProvider = ({ children }) => {
                 errorType,
                 setErrorType,
                 setSuccess,
-                updateUser
+                updateUser,
+                getCart,
+                loading,
+                setLoading
             }}
         >
             {children}

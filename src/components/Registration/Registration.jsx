@@ -8,7 +8,7 @@ import './Registration.css'
 
 const Registration = () => {
   const [showPassword, setShowPassword] = useState(false)
-  const { userRegister } = useContext(UserContext)
+  const { userRegister, loading } = useContext(UserContext)
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     const user = {
@@ -216,8 +216,8 @@ const Registration = () => {
               className="mb-3 form-control"
             />
 
-            <Button type="submit" className="w-100 primary">
-              Crear cuenta
+            <Button type="submit" className="w-100 primary" disabled={loading.register}>
+              {loading.register ? 'Registrando...' : 'Crear cuenta'}
             </Button>
           </Form>
         </Formik>

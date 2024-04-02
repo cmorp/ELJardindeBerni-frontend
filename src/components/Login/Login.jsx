@@ -9,7 +9,7 @@ import SweetAlertMessage from '../AlertMessage/AlertMessage'
 import './Login.css'
 
 const Login = () => {
-  const { userLogin, errorType } = useContext(UserContext)
+  const { userLogin, errorType, loading } = useContext(UserContext)
   const navigate = useNavigate()
 
   const validateForm = (values) => {
@@ -77,8 +77,8 @@ const Login = () => {
                   className="text-danger mb-3"
                 />
 
-                <Button type="submit" className="w-100 mt-3 primary">
-                  Iniciar sesión
+                <Button type="submit" className="w-100 mt-3 primary" disabled={loading.login}>
+                  {loading.login ? 'Iniciando sesión...' : 'Iniciar Sesión'}
                 </Button>
               </div>
             </Form>

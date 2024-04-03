@@ -5,35 +5,54 @@ import * as Validator from 'validator'
 import { Button, Image } from 'react-bootstrap'
 import { UserContext } from '../../providers/UserProvider'
 import Card from 'react-bootstrap/Card'
-import SweetAlertMessage from '../AlertMessage/AlertMessage'
+import AlertMessage from '../AlertMessage/AlertMessage'
 import './Login.css'
+import Swal from 'sweetalert2'
 
 const Login = () => {
-  const { userLogin, errorType, loading } = useContext(UserContext)
+  const { userLogin, loading, setToken, setUser } = useContext(UserContext)
   const navigate = useNavigate()
 
   const validateForm = (values) => {
-    const errors = {}
-
-    if (!Validator.isEmail(values.email)) {
-      errors.email = 'Correo electrónico inválido.'
-    }
-
-    if (Validator.isEmpty(values.password)) {
-      errors.password = 'Contraseña requerida.'
-    }
-
-    return errors
   }
 
   const handleSubmit = async (values) => {
-    const isLogedIn = await userLogin(values.email, values.password)
-    if (isLogedIn) navigate('/miCuenta')
+const res = await userLogin(values.email, values.password)
+
+if (!res.ok) {
+  const data = await res.json()
+
+  Swal.fire({
+    title: 'Error',
+    text: data?.message || 'Error al iniciar sesión.',
+    icon: 'error'
+  })
+} 
+
+try {
+  const data = await res.json()
+  
+  setToken(data?.token || null)
+  setUser(data?.usuario || null)
+
+  localStorage.setItem('token', data?.token || null)
+  localStorage.setItem('userLogin', JSON.stringify(data?.usuario || null))
+
+  navigate('/miCuenta')
+} catch (error) {
+  console.error('Error al iniciar sesión:', error)
+  Swal.fire({
+    title: 'Error',
+    text: 'Error al iniciar sesión.',
+    icon: 'error'
+  })
+}
   }
+
 
   return (
     <>
-      {errorType && <SweetAlertMessage errorType={errorType} />}
+      {/* errorType && <AlertMessage errorType={errorType} /> */}
       <Card
         style={{ width: '40%', height: '50%' }}
         className="mt-5 cardStyle shadow shadow-left border border-0"

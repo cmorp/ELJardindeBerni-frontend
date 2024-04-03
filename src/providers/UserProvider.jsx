@@ -9,13 +9,13 @@ const initialStateLogin = JSON.parse(localStorage.getItem('userLogin')) || null
 
 const UserProvider = ({ children }) => {
     const [token, setToken] = useState(initialStateToken)
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(initialStateToken)
     const [products, setProducts] = useState([])
     const [cart, setCart] = useState([])
     const [favs, setFavs] = useState([])
     const [errorType, setErrorType] = useState(null)
     const [success, setSuccess] = useState(false)
-    const [loading,setLoading] = useState({login:false, register:false})
+    const [loading,setLoading] = useState({ login: false, register: false })
 
 
     const userRegister = async (userRegister) => {
@@ -27,34 +27,15 @@ const UserProvider = ({ children }) => {
     }
 
     const userLogin = async (email, contraseña) => {
-        setLoading({...loading, login: true})
+        setLoading({ ...loading, login: true })
         const response = await fetch(`${URL_BASE}/public/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userEmail: email, password: contraseña })
         })
-
-        if (!response.ok) {
-            const data = await response.json()
-            setErrorType('userNotFound')
-            setLoading({...loading, parametros: false})
-            return false
-        }
+        setLoading({ ...loading, login: false })
 
         return response
-            .json()
-            .then((data) => {
-                setToken(data?.token || null)
-                setUser(data?.usuario || null)
-                return true
-            })
-            .catch((error) => {
-                console.error('Error al iniciar sesión:', error)
-                return false
-            })
-            .finally(() => {
-                setLoading({...loading, parametros: true})
-            })
     }
 
     const logout = () => {
@@ -233,6 +214,7 @@ const UserProvider = ({ children }) => {
                 userLogin,
                 userRegister,
                 token,
+                setToken,
                 user,
                 setUser,
                 logout,

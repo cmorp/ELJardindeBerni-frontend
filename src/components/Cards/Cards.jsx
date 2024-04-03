@@ -25,11 +25,8 @@ function Cards() {
   } = useContext(UserContext)
 
   useEffect(() => {
-    const get = () => {
       const { results } = getProducts()
       setProducts(results)
-    }
-    return () => get()
   }, [])
 
   const handleNavigateLoginRegister = () => {

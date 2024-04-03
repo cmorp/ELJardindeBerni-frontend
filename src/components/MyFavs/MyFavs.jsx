@@ -14,7 +14,8 @@ const FavsCard = () => {
     favs,
     handleToggleFav,
     isProductFav,
-    getFavByUser
+    getFavByUser,
+    loading
   } = useContext(UserContext)
 
   const handleAddCart = (item) => {
@@ -34,10 +35,14 @@ const FavsCard = () => {
     }
   }
 
-  useEffect(() => {
-    user && user.user_id && getFavByUser(user.user_id)
-  }, [])
-
+  // useEffect(() => {
+  //   const get = () => {
+  //     if (user && user.user_id) {
+  //       getFavByUser(user.user_id)
+  //     }
+  //   }
+  //   return () => get()
+  // }, [])
 
   const numberFormat = new Intl.NumberFormat('es-CL', {
     style: 'currency',
@@ -46,13 +51,15 @@ const FavsCard = () => {
     minimumFractionDigits: 0
   })
 
-
   return (
     <Container className="d-flex ms-4 mt-4 border-0 rounded">
       <Card className="border-0 shadow w-100 text-center">
         <Card.Body>
           <Card.Title>Mis Favoritos</Card.Title>
-          {(!favs || favs.length === 0) && <p>No hay productos en favoritos</p>}
+          {loading.favs && <p>Cargando favoritos...</p>}
+          {(!favs || favs.length === 0) && !loading.favs && (
+            <p>No hay productos en favoritos</p>
+          )}
           {favs &&
             favs.length > 0 &&
             favs?.map((item) => {
@@ -65,7 +72,9 @@ const FavsCard = () => {
                     <Image className="favs-image" src={item.image} />
                     <div>
                       <p className="product-name m-0 p-0">{item.productname}</p>
-                      <p className="product-name m-0 p-0">{numberFormat.format(item.price)}</p>
+                      <p className="product-name m-0 p-0">
+                        {numberFormat.format(item.price)}
+                      </p>
                     </div>
                   </div>
                   <div className="d-flex align-items-center me-4">

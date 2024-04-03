@@ -4,19 +4,24 @@ export const UserContext = createContext()
 
 const URL_BASE = import.meta.env.VITE_BASE_URL
 
-const initialStateToken = localStorage.getItem('token') || null;
+const initialStateToken = localStorage.getItem('token') || null
 const initialStateLogin = JSON.parse(localStorage.getItem('userLogin')) || null
 
 const UserProvider = ({ children }) => {
     const [token, setToken] = useState(initialStateToken)
-    const [user, setUser] = useState(initialStateToken)
+    const [user, setUser] = useState(initialStateLogin)
     const [products, setProducts] = useState([])
     const [cart, setCart] = useState([])
     const [favs, setFavs] = useState([])
     const [errorType, setErrorType] = useState(null)
     const [success, setSuccess] = useState(false)
-    const [loading,setLoading] = useState({ login: false, register: false })
-
+    const [loading, setLoading] = useState({
+        login: false,
+        register: false,
+        products: false,
+        carts: false,
+        favs: false
+    })
 
     const userRegister = async (userRegister) => {
         return await fetch(`${URL_BASE}/public/register`, {
@@ -42,11 +47,11 @@ const UserProvider = ({ children }) => {
         setToken(null)
         setUser(null)
         setFavs([])
-        console.log(success)
     }
 
     //LECTURA DE PRODUCTOS
     const getProducts = async (id) => {
+        setLoading({ ...loading, products: true })
         const URL = `${URL_BASE}/public/products/`
         const response = await fetch(`${URL}`, {
             method: 'GET',
@@ -57,20 +62,26 @@ const UserProvider = ({ children }) => {
 
         const { results } = await response.json()
         setProducts(results)
+        setLoading({ ...loading, products: false })
         return results
     }
 
     const getFavByUser = async (user_id) => {
-        const response = await fetch(`${URL_BASE}/private/users/favs/?user_id=${user_id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`
+        setLoading({ ...loading, favs: true })
+        const response = await fetch(
+            `${URL_BASE}/private/users/favs/?user_id=${user_id}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
             }
-        })
+        )
         const data = await response.json()
 
         setFavs(data.results)
+        setLoading({ ...loading, favs: false })
         return data.results
     }
 
@@ -174,28 +185,72 @@ const UserProvider = ({ children }) => {
         return data
     }
 
-
     const getCart = async (userId) => {
         try {
-            const response = await fetch(`${URL}/private/users/cart/${userId}`, {
+            setLoading({ ...loading, carts: true })
+            const response = await fetch(`${URL_BASE}/private/users/cart/${userId}`, {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
                 }
             })
             if (!response.ok) {
                 throw new Error('Error al obtener el carrito.')
             }
             const data = await response.json()
-            
+
             setCart(data)
-            return data;
+            return data
         } catch (error) {
             console.error(error)
             setErrorType('Error al obtener el carrito desde DB')
-        }
-    }
+        } finally {
+            setLoading({ ...loading, carts: false })
+        }
+    }
 
+    useEffect(() => {
+        const saveCart = setTimeout(async () => {
+            if (cart.length === 0) return
+            if (!user) return
+
+            try {
+                const response = await fetch(`${URL_BASE}/private/users/cart`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        userId: user.user_id,
+                        products: cart
+                    })
+                })
+
+                if (!response.ok) {
+                    throw new Error('Error al guardar el carrito.')
+                }
+                await response.json()
+            } catch (error) {
+                console.error(error)
+                setCart([])
+            }
+        }, 2000)
+
+        return () => clearTimeout(saveCart)
+    }, [cart])
+
+    useEffect(() => {
+        const getBasicDataUser = () => {
+            if (user && user.user_id) {
+                getCart(user.user_id)
+                getFavByUser(user.user_id)
+            }
+        }
+
+        return () => getBasicDataUser()
+    }, [user])
 
     useEffect(() => {
         if (token && user) {
@@ -206,7 +261,6 @@ const UserProvider = ({ children }) => {
             localStorage.removeItem('userLogin')
         }
     }, [token, user])
-
 
     return (
         <UserContext.Provider
@@ -242,7 +296,7 @@ const UserProvider = ({ children }) => {
         >
             {children}
         </UserContext.Provider>
-    );
-};
+    )
+}
 
 export default UserProvider

@@ -1,54 +1,50 @@
+import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-import * as Validator from 'validator'
-import { Button, Image } from 'react-bootstrap'
-import { UserContext } from '../../providers/UserProvider'
+import { Button } from 'react-bootstrap'
 import Card from 'react-bootstrap/Card'
-import AlertMessage from '../AlertMessage/AlertMessage'
-import './Login.css'
+import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import { UserContext } from '../../providers/UserProvider'
+import './Login.css'
 
 const Login = () => {
   const { userLogin, loading, setToken, setUser } = useContext(UserContext)
   const navigate = useNavigate()
 
-  const validateForm = (values) => {
-  }
+  const validateForm = (values) => {}
 
   const handleSubmit = async (values) => {
-const res = await userLogin(values.email, values.password)
+    const res = await userLogin(values.email, values.password)
 
-if (!res.ok) {
-  const data = await res.json()
+    if (!res.ok) {
+      const data = await res.json()
 
-  Swal.fire({
-    title: 'Error',
-    text: data?.message || 'Error al iniciar sesión.',
-    icon: 'error'
-  })
-} 
+      Swal.fire({
+        title: 'Error',
+        text: data?.message || 'Error al iniciar sesión.',
+        icon: 'error'
+      })
+    }
 
-try {
-  const data = await res.json()
-  
-  setToken(data?.token || null)
-  setUser(data?.usuario || null)
+    try {
+      const data = await res.json()
 
-  localStorage.setItem('token', data?.token || null)
-  localStorage.setItem('userLogin', JSON.stringify(data?.usuario || null))
+      setToken(data?.token || null)
+      setUser(data?.usuario || null)
 
-  navigate('/miCuenta')
-} catch (error) {
-  console.error('Error al iniciar sesión:', error)
-  Swal.fire({
-    title: 'Error',
-    text: 'Error al iniciar sesión.',
-    icon: 'error'
-  })
-}
+      localStorage.setItem('token', data?.token || null)
+      localStorage.setItem('userLogin', JSON.stringify(data?.usuario || null))
+
+      navigate('/miCuenta')
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error)
+      Swal.fire({
+        title: 'Error',
+        text: 'Error al iniciar sesión.',
+        icon: 'error'
+      })
+    }
   }
-
 
   return (
     <>
@@ -96,7 +92,11 @@ try {
                   className="text-danger mb-3"
                 />
 
-                <Button type="submit" className="w-100 mt-3 primary" disabled={loading.login}>
+                <Button
+                  type="submit"
+                  className="w-100 mt-3 primary"
+                  disabled={loading.login}
+                >
                   {loading.login ? 'Iniciando sesión...' : 'Iniciar Sesión'}
                 </Button>
               </div>

@@ -1,9 +1,8 @@
 import { ErrorMessage, Field, Formik } from 'formik'
 import { useContext, useState } from 'react'
 import { Button, Card, Container, Form } from 'react-bootstrap'
-import UserProvider, { UserContext } from '../../providers/UserProvider'
-import { Link } from 'react-router-dom'
 import * as Yup from 'yup'
+import { UserContext } from '../../providers/UserProvider'
 import './Profile.css'
 
 const EditProfileCard = () => {
@@ -23,7 +22,7 @@ const EditProfileCard = () => {
 
   const handleSubmit = (values, { resetForm }) => {
     if (user) {
-      const updateUser = {
+      const updateUserData = {
         ...user,
         useremail: values.formEmail,
         userphone: values.formPhone,
@@ -31,14 +30,14 @@ const EditProfileCard = () => {
         city: values.formCity,
         region: values.formRegion
       }
-      updateUser(updateUser).then(() => {
+      updateUser(updateUserData).then(() => {
         console.log('Enviar a backend', updateUser)
         setIsFormSubmitted(true)
         setIsEditing(false)
 
-        localStorage.removeItem(user)
-        localStorage.setItem(user, JSON.stringify(updateUser))
-        setUser(updateUser)
+        localStorage.removeItem('userLogin')
+        localStorage.setItem('userLogin', JSON.stringify(updateUserData))
+        setUser(updateUserData)
       })
     }
 

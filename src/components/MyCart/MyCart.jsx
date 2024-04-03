@@ -1,13 +1,13 @@
 import { React, useContext, useState } from 'react'
 import { Button, Col, Container, Image, Modal, Row } from 'react-bootstrap'
-import { FaTrashAlt } from "react-icons/fa"
+import { FaTrashAlt } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { UserContext } from '../../providers/UserProvider'
 import './MyCart.css'
 
 function MyCart() {
-  const { cart, setCart } = useContext(UserContext)
+  const { cart, setCart, loading } = useContext(UserContext)
   const [showModal, setShowModal] = useState(false)
   const navigate = useNavigate()
 
@@ -23,7 +23,6 @@ function MyCart() {
     minimumFractionDigits: 0
   })
 
-
   const calculateSubtotal = () => {
     return cart.reduce(
       (total, item) => total + parseInt(item.price) * item.cantidad,
@@ -36,9 +35,12 @@ function MyCart() {
   }
 
   const handleRemoveProduct = (productId) => {
-    const updatedCart = cart.filter(
-      (product) => product.product_id !== productId
-    )
+    const updatedCart = cart.map((product) => {
+      if (product.product_id === productId) {
+        return { ...product, cantidad: 0 }
+      }
+      return product
+    })
     setCart(updatedCart)
   }
 
@@ -67,7 +69,11 @@ function MyCart() {
         text: 'Recibirás un correo electrónico con el link de seguimiento de tu compra.'
       }).then(() => {
         navigate('/')
-        setCart([])
+        const updatedCart = cart.map((product) => {
+          return { ...product, cantidad: 0 }
+        })
+
+        setCart(updatedCart)
       })
     }
   }
@@ -85,40 +91,48 @@ function MyCart() {
                 <h5 className="fw-italic">Cantidad</h5>
                 <h5 className="fw-italic"></h5>
               </div>
+              {loading.carts && <p>Cargando productos...</p>}
               {!cart ||
-                (cart.length === 0 && <p>No hay productos en el carrito</p>)}
+                (cart.length === 0 && !loading.carts && (
+                  <p>No hay productos en el carrito</p>
+                ))}
               {cart &&
                 cart.length > 0 &&
-                cart.map((product) => (
-                  <div
-                    key={product.product_id}
-                    className="d-flex justify-content-between w-100 px-4 align-items-center"
-                  >
-                    <Image
-                      className="m-0 p-0 cart-img-product"
-                      src={product.image}
-                    />
-                    <p className="me-5">{numberFormat.format(product.price)}</p>
-                    <input
-                      className="quantity"
-                      type="number"
-                      min="1"
-                      value={product.cantidad}
-                      onChange={(e) => {
-                        handleUpdateQuantity(
-                          product.product_id,
-                          parseInt(e.target.value)
-                        )
-                      }}
-                    />
-                    <Button
-                      variant="white"
-                      onClick={() => handleRemoveProduct(product.product_id)}
+                cart.map((product) => {
+                  if (product.cantidad === 0) return null
+                  return (
+                    <div
+                      key={product.product_id}
+                      className="d-flex justify-content-between w-100 px-4 align-items-center"
                     >
-                      <FaTrashAlt  size={25}/>
-                    </Button>
-                  </div>
-                ))}
+                      <Image
+                        className="m-0 p-0 cart-img-product"
+                        src={product.image}
+                      />
+                      <p className="me-5">
+                        {numberFormat.format(product.price)}
+                      </p>
+                      <input
+                        className="quantity"
+                        type="number"
+                        min="1"
+                        value={product.cantidad}
+                        onChange={(e) => {
+                          handleUpdateQuantity(
+                            product.product_id,
+                            parseInt(e.target.value)
+                          )
+                        }}
+                      />
+                      <Button
+                        variant="white"
+                        onClick={() => handleRemoveProduct(product.product_id)}
+                      >
+                        <FaTrashAlt size={25} />
+                      </Button>
+                    </div>
+                  )
+                })}
             </div>
           </Col>
           <Col className="my-5 ms-5 me-5 border p-4 bg-light shadow">
@@ -144,9 +158,10 @@ function MyCart() {
           </Col>
         </Row>
         <div className="d-flex m-5 border-0 rounded border-0 w-80 justify-content-center">
-        <Button variant="dark mb-4 mb-3" onClick={() => setShowModal(true)}>
-          IR A PAGAR
-        </Button></div>
+          <Button variant="dark mb-4 mb-3" onClick={() => setShowModal(true)}>
+            IR A PAGAR
+          </Button>
+        </div>
         <Modal show={showModal} onHide={() => setShowModal(false)}>
           <Modal.Header closeButton>
             <Modal.Title>¿Confirmas tu pago?</Modal.Title>

@@ -20,12 +20,16 @@ function Cards() {
     isProductFav,
     getProducts,
     products,
-    setProducts
+    setProducts,
+    loading
   } = useContext(UserContext)
 
   useEffect(() => {
-    const { results } = getProducts()
-    setProducts(results)
+    const get = () => {
+      const { results } = getProducts()
+      setProducts(results)
+    }
+    return () => get()
   }, [])
 
   const handleNavigateLoginRegister = () => {
@@ -48,7 +52,6 @@ function Cards() {
     }
   }
 
-
   const numberFormat = new Intl.NumberFormat('es-CL', {
     style: 'currency',
     currency: 'CLP',
@@ -56,13 +59,15 @@ function Cards() {
     minimumFractionDigits: 0
   })
 
-
   return (
     <Container>
       <Row lg={4} md={1} sm={1} xs={1} className="row-gap-5">
-        {(!products || products.length === 0) && (
-          <h2>¡Lo sentimos! <br/> 
-          En estos momentos no hay productos disponibles :( </h2>
+        {loading.products && <h2>Cargando productos...</h2>}
+        {(!products || products.length === 0) && !loading.products && (
+          <h2>
+            ¡Lo sentimos! <br />
+            En estos momentos no hay productos disponibles :({' '}
+          </h2>
         )}
         {products &&
           products.length > 0 &&
@@ -77,8 +82,12 @@ function Cards() {
                   />
                   <Card.Body>
                     <Card.Title className="m-2">{item?.productname}</Card.Title>
-                    <Card.Text className="m-2">{numberFormat.format(item.price)}</Card.Text>
-                    <Card.Text className="m-2 description">{item?.description}</Card.Text>
+                    <Card.Text className="m-2">
+                      {numberFormat.format(item.price)}
+                    </Card.Text>
+                    <Card.Text className="m-2 description">
+                      {item?.description}
+                    </Card.Text>
                     <div className="button-cards m-4 d-flex align-items-center">
                       <Button
                         className="button-add-cart"
@@ -100,7 +109,7 @@ function Cards() {
                         className="like-button bg-light d-flex align-items-center"
                       >
                         {isProductFav(item.product_id) ? (
-                          <FaHeart  size={25} className="text-dark" />
+                          <FaHeart size={25} className="text-dark" />
                         ) : (
                           <FaRegHeart size={25} />
                         )}

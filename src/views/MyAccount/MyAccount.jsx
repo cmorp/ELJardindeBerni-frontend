@@ -10,7 +10,7 @@ const MyAccount = () => {
   const { user } = useContext(UserContext)
   const navigate = useNavigate()
 
-  if (!user) {
+  if (user === null) {
     return navigate('/')
   }
 

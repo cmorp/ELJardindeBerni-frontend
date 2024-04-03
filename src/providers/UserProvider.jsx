@@ -242,14 +242,10 @@ const UserProvider = ({ children }) => {
     }, [cart])
 
     useEffect(() => {
-        const getBasicDataUser = () => {
             if (user && user.user_id) {
                 getCart(user.user_id)
                 getFavByUser(user.user_id)
             }
-        }
-
-        return () => getBasicDataUser()
     }, [user])
 
     useEffect(() => {
